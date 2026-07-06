@@ -1,4 +1,4 @@
-# CasaOS MCP Monolithic Aggregator
+# MCP Monolithic Aggregator
 
 A unified, highly-optimized Docker infrastructure for running multiple Model Context Protocol (MCP) servers behind a single SSE (Server-Sent Events) endpoint. 
 
