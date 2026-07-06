@@ -1,0 +1,8 @@
+{
+  "name": "mcp-supergateway-aggregator",
+  "version": "1.0.0",
+  "description": "Production-ready Docker infrastructure for Model Context Protocol (MCP). Multiplexes multiple MCP servers into a single SSE endpoint.",
+  "author": "brainoir",
+  "license": "MIT",
+  "private": true
+}
