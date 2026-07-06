@@ -1,0 +1,88 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/@playwright/mcp/cli.js"
+      ]
+    },
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+        "/home/user/projects"
+      ]
+    },
+    "mui": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/@mui/mcp/dist/stdio.cjs.js"
+      ]
+    },
+    "storybook-figma": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/storybook-figma-mcp/dist/cli.js"
+      ],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "${FIGMA_ACCESS_TOKEN}",
+        "FIGMA_TEAM_ID": "${FIGMA_TEAM_ID}"
+      }
+    },
+    "tavily": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/tavily-mcp/build/index.js"
+      ]
+    },
+    "context7": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/@upstash/context7-mcp/dist/index.js"
+      ]
+    },
+    "deep-research": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/@pinkpixel/deep-research-mcp/dist/index.js"
+      ]
+    },
+    "repowise": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "repowise",
+        "mcp"
+      ]
+    },
+    "github": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "github-mcp-server-mcp"
+      ]
+    },
+    "puppeteer": {
+      "command": "node",
+      "args": [
+        "/app/wrapper.js",
+        "node",
+        "/usr/lib/node_modules/@modelcontextprotocol/server-puppeteer/dist/index.js"
+      ]
+    }
+  }
+}

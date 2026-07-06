@@ -1,0 +1,35 @@
+networks:
+  mcp_net:
+    driver: bridge
+
+services:
+  nginx-gateway:
+    image: nginx:alpine
+    container_name: mcp-nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8100:80"
+    networks:
+      - mcp_net
+    restart: unless-stopped
+
+  mcp-aggregator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mcp-aggregator
+    env_file:
+      - .env
+    environment:
+      - FILE_WRITE_ENABLED=true
+      - ALLOWED_WRITE_PATHS=/home/user/projects
+    deploy:
+      resources:
+        limits:
+          memory: 5120M
+    networks:
+      - mcp_net
+    volumes:
+      - /home/user/projects:/home/user/projects
+    restart: unless-stopped
