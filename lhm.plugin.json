@@ -1,6 +1,6 @@
 {
   "identifier": "brainoir-mcp-supergateway-aggregator",
-  "name": "CasaOS MCP Monolithic Aggregator",
-  "version": "1.1.1",
+  "name": "MCP Monolithic Aggregator",
+  "version": "1.1.2",
   "description": "Production-ready Docker infrastructure for Model Context Protocol (MCP). Multiplexes multiple MCP servers into a single SSE endpoint."
 }
