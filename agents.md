@@ -6,10 +6,9 @@ description: Developer guidelines for interacting with and modifying the MCP Mon
 
 When an AI Agent is modifying or managing this repository, the following rules MUST be followed to preserve the stability of the monolithic infrastructure. Keep in mind that this is a **universal wrapper**, and end-users will install their own arbitrary MCP servers inside it.
 
-### 1. Process Management (POSIX signals)
-You can safely use `npx` or `uvx` inside `combine_config.json` to launch MCP servers.
-**Why:** The previous issue with zombie processes caused by missing `SIGTERM` forwards in Node wrappers has been resolved natively at the POSIX level in our Docker container.
-**Rule:** Feel free to use standard `npx -y <package>` or `uvx <package>` commands. Custom `wrapper.js` scripts are no longer needed.
+### 1. Process Management
+**Rule:** Always use standard `npx -y <package>` or `uvx <package>` commands inside `combine_config.json` to launch MCP servers.
+**Why:** The aggregator's Docker container natively handles POSIX signals, ensuring proper shutdown and preventing zombie processes without any additional wrappers.
 
 ### 2. Supergateway Patch
 The base `supergateway` package has a critical bug: if a client disconnects before a response is ready, it throws an uncaught error `No connection established`, killing the entire container.
