@@ -8,7 +8,7 @@ When an AI Agent is modifying or managing this repository, the following rules M
 
 ### 1. Process Management
 **Rule:** Always use standard `npx -y <package>` or `uvx <package>` commands inside `combine_config.json` to launch MCP servers.
-**Why:** The aggregator's Docker container natively handles POSIX signals, ensuring proper shutdown and preventing zombie processes without any additional wrappers.
+**Why:** The aggregator's Docker container natively handles POSIX signals (`SIGTERM`), ensuring proper process lifecycle management and clean shutdowns.
 
 ### 2. Supergateway Patch
 The base `supergateway` package has a critical bug: if a client disconnects before a response is ready, it throws an uncaught error `No connection established`, killing the entire container.
