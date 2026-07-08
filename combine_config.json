@@ -1,87 +1,64 @@
 {
   "mcpServers": {
-    "playwright": {
-      "command": "node",
-      "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/@playwright/mcp/cli.js"
-      ]
-    },
     "filesystem": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
         "/home/user/projects"
       ]
     },
     "mui": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/@mui/mcp/dist/stdio.cjs.js"
+        "--no",
+        "@mui/mcp"
       ]
     },
     "storybook-figma": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/storybook-figma-mcp/dist/cli.js"
+        "--no",
+        "storybook-figma-mcp"
       ],
       "env": {
-        "FIGMA_ACCESS_TOKEN": "${FIGMA_ACCESS_TOKEN}",
-        "FIGMA_TEAM_ID": "${FIGMA_TEAM_ID}"
+        "FIGMA_ACCESS_TOKEN": "figd_YOUR_TOKEN_HERE",
+        "FIGMA_TEAM_ID": "YOUR_TEAM_ID"
       }
     },
     "tavily": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/tavily-mcp/build/index.js"
+        "-y",
+        "tavily-mcp"
       ]
     },
     "context7": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/@upstash/context7-mcp/dist/index.js"
+        "-y",
+        "@upstash/context7-mcp"
       ]
     },
     "deep-research": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/@pinkpixel/deep-research-mcp/dist/index.js"
+        "-y",
+        "@pinkpixel/deep-research-mcp"
       ]
     },
     "repowise": {
-      "command": "node",
+      "command": "uvx",
       "args": [
-        "/app/wrapper.js",
         "repowise",
         "mcp"
       ]
     },
     "github": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/app/wrapper.js",
+        "--no",
         "github-mcp-server-mcp"
-      ]
-    },
-    "puppeteer": {
-      "command": "node",
-      "args": [
-        "/app/wrapper.js",
-        "node",
-        "/usr/lib/node_modules/@modelcontextprotocol/server-puppeteer/dist/index.js"
       ]
     }
   }

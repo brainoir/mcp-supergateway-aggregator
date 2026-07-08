@@ -9,10 +9,10 @@ This project is a heavily modified and optimized infrastructure wrapper based on
 2. **[supergateway](https://www.npmjs.com/package/supergateway):** A Node.js bridge by Supermachine that converts HTTP SSE requests into stdio calls.
 
 ### Why this repo exists?
-While `combine-mcp` and `supergateway` are powerful tools, combining them with a dozen Node.js and Python-based MCP tools (Playwright, Deep Research, Storybook/Figma, etc.) inside a Docker container introduces several architectural challenges, including memory leaks, zombie processes, routing issues, and timeouts. 
+While `combine-mcp` and `supergateway` are powerful tools, combining them with a dozen Node.js and Python-based MCP tools (Deep Research, Storybook/Figma, etc.) inside a Docker container introduces several architectural challenges, including memory leaks, zombie processes, routing issues, and timeouts. 
 
-This repository provides a production-ready, monolithic MCP infrastructure container that solves these issues:
-- **Multiplexing & Massive Memory Savings (1:N):** Standard `stdio` MCP spawns a new dedicated Node process for every open IDE window, causing catastrophic memory bloat (e.g., 3 open projects = 3 separate `playwright` processes). This SSE-based aggregator runs exactly ONE instance of each tool inside Docker and serves all IDE windows simultaneously over HTTP, saving gigabytes of RAM.
+### Why use an Aggregator?
+- **Multiplexing & Massive Memory Savings (1:N):** Standard `stdio` MCP spawns a new dedicated Node process for every open IDE window, causing catastrophic memory bloat (e.g., 3 open projects = 3 separate Node processes per tool). This SSE-based aggregator runs exactly ONE instance of each tool inside Docker and serves all IDE windows simultaneously over HTTP, saving gigabytes of RAM.
 - **No Zombie Processes:** Direct binary execution and a custom `wrapper.js` to ensure proper `SIGTERM` signal propagation (replacing `npx` wrappers which leak memory).
 - **No HTTP Timeouts (supergateway patch):** Includes a built-in patch for a critical `webStandardStreamableHttp.js` bug that otherwise crashes the Node process on long-running LLM requests.
 - **OOM Protection:** Enforces strict V8 memory limits (`--max-old-space-size`) to keep memory footprint predictable under load.
@@ -20,8 +20,6 @@ This repository provides a production-ready, monolithic MCP infrastructure conta
 
 ## Included MCP Servers
 - `@modelcontextprotocol/server-filesystem`
-- `@playwright/mcp`
-- `@modelcontextprotocol/server-puppeteer`
 - `tavily-mcp`
 - `@upstash/context7-mcp`
 - `@pinkpixel/deep-research-mcp`
@@ -43,11 +41,6 @@ Because this aggregator multiplexes multiple clients (IDE windows) into a single
 - *Tools:* `@modelcontextprotocol/server-filesystem`, `repowise`
 - *Behavior:* Safe for concurrent reads/writes (mostly). 
 - *Bottleneck:* Local RAM/CPU when parsing large repositories.
-
-**3. Stateful Resources (Concurrency Hazard)**
-- *Tools:* `@playwright/mcp`, `@modelcontextprotocol/server-puppeteer`
-- *Behavior:* These tools control a **single shared resource** (a headless browser). If Agent A navigates to a URL while Agent B simultaneously clicks a button, they will overwrite each other's state (Race Condition).
-- *Potential R&D Issue / Future Direction:* Implement context-isolation for stateful tools. The aggregator could potentially map incoming SSE client IDs to independent incognito browser contexts in Playwright, ensuring each agent gets its own "steering wheel" without spawning entirely new Node processes.
 
 ## Usage
 

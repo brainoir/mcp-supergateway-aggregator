@@ -16,7 +16,6 @@ By default, the endpoint is accessible at:
 The aggregator automatically prefixes tool names to avoid collisions. The exact tools available depend on how the user configures `combine_config.json`.
 By default, the provided example stack includes:
 - `filesystem_*` (File operations within allowed paths)
-- `playwright_*` (Browser automation)
 - `tavily_*` (Web search and scraping)
 - `github_*` (GitHub operations)
 - *Users can install and configure any arbitrary Node.js, Python, or Go MCP server.*

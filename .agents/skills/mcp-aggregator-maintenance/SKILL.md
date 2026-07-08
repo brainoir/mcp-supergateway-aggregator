@@ -18,9 +18,9 @@ When tasked with investigating memory issues, you should read the `mcp_memory_st
 The logs are in the format: `PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
 
 Look for:
-1. **Uncontrolled RSS Growth:** Identify if specific tools installed by the user (e.g., heavy tools like `playwright/mcp`, custom scrapers, or memory-bound Python scripts) are steadily increasing their Resident Set Size (RSS) without dropping.
-2. **Zombie Processes:** Look for `Z` in the `STAT` column. Zombie processes occur if a tool crashes and the wrapper doesn't clean it up properly.
-3. **Orphaned `npm exec` wrappers:** If you see dozens of `npm exec` processes, the aggregator is leaking processes on restarts. (This should be fixed by using absolute node paths instead of npx, per `agents.md`).
+1. **Uncontrolled RSS Growth:** Identify if specific tools installed by the user (e.g., custom scrapers, or memory-bound Python scripts) are steadily increasing their Resident Set Size (RSS) without dropping.
+2. **Zombie Processes:** Look for `Z` in the `STAT` column. Zombie processes occur if a tool crashes and isn't cleaned up properly.
+3. **Orphaned processes:** If you see dozens of orphaned processes, the aggregator is leaking processes on restarts. (Check for correct pathing or custom process handling).
 
 ### Applying Limits
 If a Node.js-based MCP server is OOM-killing the container due to memory leaks, apply strict memory limits in `combine_config.json` via Node V8 flags, or globally in the Dockerfile:
