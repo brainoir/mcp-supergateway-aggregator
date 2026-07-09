@@ -3,5 +3,71 @@
   "icon": "🍱",
   "identifier": "brainoir-mcp-supergateway-aggregator",
   "name": "MCP Monolithic Aggregator",
-  "version": "1.3.1"
+  "version": "1.3.2",
+  "tools": [
+    {
+      "name": "tavily_search",
+      "description": "Performs a web search to find relevant information",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search query"
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "read_file",
+      "description": "Read contents of a file from the local filesystem",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Absolute path to the file"
+          }
+        },
+        "required": ["path"]
+      }
+    },
+    {
+      "name": "get_health",
+      "description": "Analyzes the overall health and code quality metrics of a repository",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repo_path": {
+            "type": "string",
+            "description": "Path to the local repository"
+          }
+        },
+        "required": ["repo_path"]
+      }
+    }
+  ],
+  "prompts": [
+    {
+      "name": "explain_code",
+      "description": "Explain the selected code or file content"
+    },
+    {
+      "name": "review_pr",
+      "description": "Generate a code review for a given GitHub Pull Request"
+    }
+  ],
+  "resources": [
+    {
+      "name": "file_content",
+      "description": "Content of a local file",
+      "uri": "file://"
+    },
+    {
+      "name": "repo_context",
+      "description": "Contextual knowledge graph for the repository",
+      "uri": "repo://"
+    }
+  ]
 }

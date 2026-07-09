@@ -1,5 +1,7 @@
 # MCP Monolithic Aggregator
 
+[![MCP Badge](https://lobehub.com/badge/mcp/brainoir-mcp-supergateway-aggregator)](https://lobehub.com/mcp/brainoir-mcp-supergateway-aggregator)
+
 A unified, highly-optimized Docker infrastructure for running multiple Model Context Protocol (MCP) servers behind a single SSE (Server-Sent Events) endpoint. 
 
 ## Background and Upstream Credits
