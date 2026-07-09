@@ -11,11 +11,11 @@ This skill provides instructions for AI agents on how to maintain the health of 
 Because this aggregator is a universal wrapper and can host any arbitrary MCP tools added by the user (including heavy ones like Chromium headless browsers, custom ML scripts, or AST parsers), memory profiling is periodically required.
 There is an active memory logging system in place. Logs are gathered periodically and saved locally. 
 
-**Log Location:** `07_Issues/mcp-memory-profiling/mcp_memory_stats.log`
+**Log Location:** The exact path to memory logs depends on where the user deployed the aggregator. **You must ask the user** for the location of the memory profiling logs (e.g., `mcp_memory_stats.log`) before attempting to read them.
 
 ### Analyzing Memory Logs
-When tasked with investigating memory issues, you should read the `mcp_memory_stats.log`.
-The logs are in the format: `PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
+When tasked with investigating memory issues, read the memory log file provided by the user.
+The logs typically follow this format: `PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
 
 Look for:
 1. **Uncontrolled RSS Growth:** Identify if specific tools installed by the user (e.g., custom scrapers, or memory-bound Python scripts) are steadily increasing their Resident Set Size (RSS) without dropping.
