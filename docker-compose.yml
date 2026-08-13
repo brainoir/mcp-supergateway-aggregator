@@ -17,7 +17,7 @@ services:
   mcp-aggregator:
     build:
       context: .
-      dockerfile: Dockerfile.aggregator
+      dockerfile: Dockerfile
     container_name: mcp-aggregator
     env_file:
       - .env
