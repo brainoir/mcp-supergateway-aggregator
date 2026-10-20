@@ -8,24 +8,6 @@
         "/home/user/projects"
       ]
     },
-    "mui": {
-      "command": "npx",
-      "args": [
-        "--no",
-        "@mui/mcp"
-      ]
-    },
-    "storybook-figma": {
-      "command": "npx",
-      "args": [
-        "--no",
-        "storybook-figma-mcp"
-      ],
-      "env": {
-        "FIGMA_ACCESS_TOKEN": "figd_YOUR_TOKEN_HERE",
-        "FIGMA_TEAM_ID": "YOUR_TEAM_ID"
-      }
-    },
     "tavily": {
       "command": "npx",
       "args": [
@@ -47,18 +29,12 @@
         "@pinkpixel/deep-research-mcp"
       ]
     },
-    "repowise": {
-      "command": "uvx",
-      "args": [
-        "repowise",
-        "mcp"
-      ]
-    },
     "github": {
-      "command": "npx",
+      "command": "github-mcp-server",
       "args": [
-        "--no",
-        "github-mcp-server-mcp"
+        "stdio",
+        "--tools",
+        "search_repositories,search_code,get_file_contents,get_repository_tree"
       ]
     }
   }

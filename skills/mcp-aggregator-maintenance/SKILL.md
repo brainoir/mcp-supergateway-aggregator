@@ -9,13 +9,16 @@ This skill provides instructions for AI agents on how to maintain the health of 
 
 ## Memory Profiling
 Because this aggregator is a universal wrapper and can host any arbitrary MCP tools added by the user (including heavy ones like Chromium headless browsers, custom ML scripts, or AST parsers), memory profiling is periodically required.
-There is an active memory logging system in place. Logs are gathered periodically and saved locally. 
 
-**Log Location:** The exact path to memory logs depends on where the user deployed the aggregator. **You must ask the user** for the location of the memory profiling logs (e.g., `mcp_memory_stats.log`) before attempting to read them.
+Memory logging is performed by `scripts/mcp_mem_logger.sh`:
+- **Interval:** 30 seconds.
+- **Log Directory:** Specified via the `MCP_MEM_LOG_DIR` environment variable (defaults to `./launch/`).
+- **Git Ignore:** All `*.log` files and the `launch/` directory are included in `.gitignore` and never committed.
+- **Log Line Format:** `[TIMESTAMP] PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
 
 ### Analyzing Memory Logs
-When tasked with investigating memory issues, read the memory log file provided by the user.
-The logs typically follow this format: `PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
+When tasked with investigating memory issues, read the memory log file provided by the user or located in `MCP_MEM_LOG_DIR` (or `./launch/mcp_memory_stats_YYYYMMDD.log`).
+The logs follow the format: `PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
 
 Look for:
 1. **Uncontrolled RSS Growth:** Identify if specific tools installed by the user (e.g., custom scrapers, or memory-bound Python scripts) are steadily increasing their Resident Set Size (RSS) without dropping.
@@ -37,10 +40,9 @@ When an AI Agent is modifying or managing this repository, the following rules M
 **Rule:** Always use standard `npx -y <package>` or `uvx <package>` commands inside `combine_config.json` to launch MCP servers.
 **Why:** The aggregator's Docker container natively handles POSIX signals (`SIGTERM`), ensuring proper process lifecycle management and clean shutdowns.
 
-### 2. Supergateway Patch
-The base `supergateway` package has a critical bug: if a client disconnects before a response is ready, it throws an uncaught error `No connection established`, killing the entire container.
-**Rule:** Ensure the `sed` patch in the Dockerfile is preserved:
-`RUN find /usr -name "webStandardStreamableHttp.js" -exec sed -i 's/throw new Error/console.error/g' {} +`
+### 2. Platform Pinning & Process Lifecycle
+Platform components are strictly version-pinned: `supergateway` (currently 4.2.0) and `combine-mcp` (currently v1.1.1). Binary tools (`github-mcp-server`) are also installed strictly as explicit version-pinned release assets (currently v2.0.2), matching platform components. Version 4 natively terminates child process groups upon connection close and on signal. Hosted npm-based tools (filesystem, tavily, context7, deep-research) are intentionally installed without version pins to automatically receive upstream updates.
+**Rule:** Direct patches to `dist` are strictly forbidden; update platform and binary tools only via explicit pin bumps after reviewing upstream release notes.
 
 ### 3. NGINX Proxying
 **Rule:** When adjusting `nginx.conf`, `proxy_buffering off;` must REMAIN disabled. Enabling buffering will break Server-Sent Events (SSE) streaming for AI agents, causing the IDE to time out waiting for JSON-RPC responses.
