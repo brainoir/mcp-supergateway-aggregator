@@ -3,7 +3,7 @@
   "icon": "🍱",
   "identifier": "brainoir-mcp-supergateway-aggregator",
   "name": "MCP Monolithic Aggregator",
-  "version": "1.5.0",
+  "version": "1.4.2",
   "tools": [
     {
       "name": "tavily_search",
