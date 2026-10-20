@@ -1,4 +1,4 @@
 ---
 trigger: always_on
 ---
-Этот проект является публичным плагином для маркетплейса. Поддерживай чистоту корневой директории: в ней должны находиться только файлы, минимально необходимые для установки (манифесты, docker-compose, README). Размещай вспомогательные скрипты и документацию в соответствующих подпапках (например, `skills/`). Избегай сохранения любых секретов или приватных данных в коде.
+This project is a public marketplace plugin. Keep the root directory clean: it must contain only the files strictly necessary for installation (manifests, docker-compose, README). Place auxiliary scripts and documentation in appropriate subdirectories (e.g., `skills/`). Avoid storing any secrets or private data in the codebase.

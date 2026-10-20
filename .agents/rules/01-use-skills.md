@@ -1,4 +1,4 @@
 ---
 trigger: always_on
 ---
-При выполнении любых задач в этом проекте, отдавай приоритет использованию готовых скиллов. Проверяй доступные локальные скиллы в `.agents/skills/` и глобальные скиллы, вызывая их через `/имя-скилла` перед тем, как пытаться решить задачу с нуля.
+When performing any tasks in this project, prioritize using existing skills. Check available local skills in `.agents/skills/` and global skills, invoking them via `/skill-name` before attempting to solve a task from scratch.
