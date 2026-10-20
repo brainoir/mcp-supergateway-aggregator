@@ -23,7 +23,7 @@ services:
       - .env
     environment:
       - FILE_WRITE_ENABLED=true
-      - ALLOWED_WRITE_PATHS=/home/user/projects
+      - ALLOWED_WRITE_PATHS=/data
     deploy:
       resources:
         limits:
@@ -31,5 +31,5 @@ services:
     networks:
       - mcp_net
     volumes:
-      - /home/user/projects:/home/user/projects
+      - ${WORKSPACE_DIR:-./workspace}:/data
     restart: unless-stopped

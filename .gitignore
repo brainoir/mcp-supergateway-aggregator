@@ -1,7 +1,7 @@
 node_modules/
 .env
 launch
-.devnotes/
-.kilo/
-scratch/
+.devnotes
+.kilo
+scratch
 *.log

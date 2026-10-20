@@ -82,7 +82,7 @@ Because this aggregator multiplexes multiple clients (IDE windows) into a single
 ## Usage
 
 1. Clone the repository.
-2. Copy `.env.example` to `.env` and fill in your API keys (Tavily, Figma, GitHub, etc).
+2. Copy `.env.example` to `.env` and fill in your API keys (Tavily, GitHub, etc). Specify `WORKSPACE_DIR` pointing to your host folder (accessible to agents inside the container as `/data`).
 3. Review `combine_config.json` to enable or disable specific servers.
 4. Start the stack:
    ```bash

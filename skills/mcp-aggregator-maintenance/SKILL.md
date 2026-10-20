@@ -10,14 +10,19 @@ This skill provides instructions for AI agents on how to maintain the health of 
 ## Memory Profiling
 Because this aggregator is a universal wrapper and can host any arbitrary MCP tools added by the user (including heavy ones like Chromium headless browsers, custom ML scripts, or AST parsers), memory profiling is periodically required.
 
-Memory logging is performed by `scripts/mcp_mem_logger.sh`:
-- **Interval:** 30 seconds.
-- **Log Directory:** Specified via the `MCP_MEM_LOG_DIR` environment variable (defaults to `./launch/`).
-- **Git Ignore:** All `*.log` files and the `launch/` directory are included in `.gitignore` and never committed.
-- **Log Line Format:** `[TIMESTAMP] PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
+### Capturing Metrics
+1. **Live container snapshot:**
+   ```bash
+   docker stats <container> --no-stream
+   ```
+2. **Periodic process sampling:**
+   Sample process stats inside the container or on the host using a one-line sampling loop:
+   ```bash
+   while true; do ps -eo pid,stat,rss,vsz,args | grep -E 'combine-mcp|supergateway' | grep -v grep; sleep 30; done
+   ```
 
 ### Analyzing Memory Logs
-When tasked with investigating memory issues, read the memory log file provided by the user or located in `MCP_MEM_LOG_DIR` (or `./launch/mcp_memory_stats_YYYYMMDD.log`).
+When tasked with investigating memory issues, read the memory log or sampled output provided by the user.
 The logs follow the format: `PID STAT RSS(KB) VSZ(KB) COMMAND ARGS`
 
 Look for:
